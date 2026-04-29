@@ -1,0 +1,245 @@
+                                    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Shop | Orders</title>
+    <style>
+        
+        body {
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .form-container {
+            max-width: 450px;
+            width: 90%;
+            margin: 20px;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            position: relative;
+            border-top: 10px solid #064e3b;
+        }
+
+        .lang-switch {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #064e3b;
+            color: white;
+            border: none;
+            padding: 7px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: 0.3s;
+        }
+
+        .lang-switch:hover { background-color: #166534; }
+
+        h2 { color: #064e3b; text-align: center; margin-bottom: 25px; }
+
+        label {
+            display: block;
+            margin: 12px 0 5px;
+            color: #1a2e1a;
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        /* تنسيق مجموعة الموبايل */
+        .phone-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        #countryCode {
+            width: 130px;
+        }
+
+        #phone {
+            flex: 1;
+        }
+
+        textarea { resize: vertical; }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: #064e3b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button[type="submit"]:hover { background-color: #043a2c; }
+
+        
+        .rtl { direction: rtl; text-align: right; }
+        .rtl .lang-switch { right: auto; left: 15px; }
+        .rtl .phone-group { flex-direction: row; }
+    </style>
+</head>
+<body>
+
+    <div class="form-container" id="formContainer">
+        <button id="langBtn" class="lang-switch">Switch to Arabic</button>
+        
+        <h2 id="formTitle">Order Registration</h2>
+        <form action="#" method="POST">
+            <label for="name" id="labelName">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+            <label id="labelPhone">Phone Number</label>
+            <div class="phone-group">
+                <select id="countryCode">
+                    <option value="+20">+20 (EG)</option>
+                    <option value="+966">+966 (SA)</option>
+                    <option value="+971">+971 (AE)</option>
+                    <option value="+33">+33 (FR)</option>
+                    <option value="+39">+39 (IT)</option>
+                    <option value="+49">+49 (DE)</option>
+                </select>
+                <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required>
+            </div>
+
+            <label for="email" id="labelEmail">Gmail Address</label>
+            <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+
+            <label for="date" id="labelDate">Preferred Delivery Date</label>
+            <input type="text" id="date" name="date" placeholder="Select delivery date" 
+                   onfocus="(this.type='date')" 
+                   onblur="(this.value=='' ? this.type='text' : this.type='date')" required>
+
+            <label for="country" id="labelCountry">Country</label>
+            <select id="country" name="country">
+                <option value="" disabled selected id="optSelect">Select your country</option>
+                <option value="egypt" id="optEgypt">Egypt</option>
+                <option value="saudi" id="optSaudi">Saudi Arabia</option>
+                <option value="uae" id="optUAE">UAE</option>
+                <option value="france" id="optFrance">France</option>
+                <option value="italy" id="optItaly">Italy</option>
+                <option value="germany" id="optGermany">Germany</option>
+                <option value="other" id="optOther">Other</option>
+            </select>
+
+            <label for="notes" id="labelNotes">Notes</label>
+            <textarea id="notes" name="notes" rows="3" placeholder="Any special requests?"></textarea>
+
+            <button type="submit" id="submitBtn">Confirm Order</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const langBtn = document.getElementById('langBtn');
+            const formContainer = document.getElementById('formContainer');
+
+            const translations = {
+                en: {
+                    btn: "Switch to Arabic",
+                    title: "Order Registration",
+                    name: "Full Name",
+                    phone: "Phone Number",
+                    email: "Gmail Address",
+                    date: "Preferred Delivery Date",
+                    country: "Country",
+                    notes: "Notes",
+                    submit: "Confirm Order",
+                    pName: "Enter your full name",
+                    pPhone: "Enter phone number",
+                    pEmail: "example@gmail.com",
+                    pDate: "Select delivery date",
+                    pNotes: "Any special requests?",
+                    select: "Select your country",
+                    egypt: "Egypt", saudi: "Saudi Arabia", uae: "UAE",
+                    france: "France", italy: "Italy", germany: "Germany", other: "Other"
+                },
+                ar: {
+                    btn: "التغيير للإنجليزية",
+                    title: "تسجيل الطلب",
+                    name: "الاسم بالكامل",
+                    phone: "رقم الموبايل",
+                    email: "البريد الإلكتروني (جيميل)",
+                    date: "موعد الاستلام المفضل",
+                    country: "الدولة",
+                    notes: "ملاحظات",
+                    submit: "تأكيد الطلب",
+                    pName: "اكتب اسمك بالكامل هنا",
+                    pPhone: "أدخل رقم الهاتف",
+                    pEmail: "بريدك الإلكتروني (جيميل)",
+                    pDate: "اختر موعد الاستلام",
+                    pNotes: "هل لديك أي طلبات خاصة؟",
+                    select: "اختر دولتك",
+                    egypt: "مصر", saudi: "السعودية", uae: "الإمارات",
+                    france: "فرنسا", italy: "إيطاليا", germany: "ألمانيا", other: "أخرى"
+                }
+            };
+
+            let currentLang = 'en';
+
+            if (langBtn) {
+                langBtn.addEventListener('click', () => {
+                    currentLang = currentLang === 'en' ? 'ar' : 'en';
+                    
+                    
+                    document.getElementById('formTitle').innerText = translations[currentLang].title;
+                    document.getElementById('labelName').innerText = translations[currentLang].name;
+                    document.getElementById('labelPhone').innerText = translations[currentLang].phone;
+                    document.getElementById('labelEmail').innerText = translations[currentLang].email;
+                    document.getElementById('labelDate').innerText = translations[currentLang].date;
+                    document.getElementById('labelCountry').innerText = translations[currentLang].country;
+                    document.getElementById('labelNotes').innerText = translations[currentLang].notes;
+                    document.getElementById('submitBtn').innerText = translations[currentLang].submit;
+                    langBtn.innerText = translations[currentLang].btn;
+
+                    
+                    document.getElementById('name').setAttribute('placeholder', translations[currentLang].pName);
+                    document.getElementById('phone').setAttribute('placeholder', translations[currentLang].pPhone);
+                    document.getElementById('email').setAttribute('placeholder', translations[currentLang].pEmail);
+                    document.getElementById('date').setAttribute('placeholder', translations[currentLang].pDate);
+                    document.getElementById('notes').setAttribute('placeholder', translations[currentLang].pNotes);
+
+                    
+                    document.getElementById('optSelect').innerText = translations[currentLang].select;
+                    document.getElementById('optEgypt').innerText = translations[currentLang].egypt;
+                    document.getElementById('optSaudi').innerText = translations[currentLang].saudi;
+                    document.getElementById('optUAE').innerText = translations[currentLang].uae;
+                    document.getElementById('optFrance').innerText = translations[currentLang].france;
+                    document.getElementById('optItaly').innerText = translations[currentLang].italy;
+                    document.getElementById('optGermany').innerText = translations[currentLang].germany;
+                    document.getElementById('optOther').innerText = translations[currentLang].other;
+
+            
+                    if(currentLang === 'ar') {
+                        formContainer.classList.add('rtl');
+                    } else {
+                        formContainer.classList.remove('rtl');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
